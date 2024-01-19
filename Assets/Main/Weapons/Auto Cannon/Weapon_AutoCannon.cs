@@ -93,9 +93,4 @@ public class Weapon_AutoCannon : MonoBehaviour
     {
         Destroy(bullet.gameObject);
     }
-
-    void OnGUI()
-    {
-        GUILayout.Label("Pool size: " + _projectilePool.CountInactive);
-    }
 }

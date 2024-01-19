@@ -9,9 +9,11 @@ public class EnemyPool : MonoBehaviour
 
     public EnemyLifetime enemyPrefab;
     public Explosion explosionPrefab;
+    public XpBubble xpBubblePrefab;
 
     private IObjectPool<EnemyLifetime> _enemyPool;
     private IObjectPool<Explosion> _explosionPool;
+    private IObjectPool<XpBubble> _xpBubblePool;
 
     public bool TryTakeEnemy(out EnemyLifetime enemy)
     {
@@ -25,6 +27,15 @@ public class EnemyPool : MonoBehaviour
             debugChecks, maxEnemies, maxEnemies);
         _explosionPool = new ObjectPool<Explosion>(CreateExplosion, OnTakeExplosion, OnExplosionReturned,
             OnDestroyExplosion, debugChecks, maxExplosions, maxExplosions);
+        _xpBubblePool = new ObjectPool<XpBubble>(CreateXpBubble, null, null, null, debugChecks, 200, 1000);
+    }
+
+    XpBubble CreateXpBubble()
+    {
+        var xpBubble = Instantiate(xpBubblePrefab);
+        xpBubble.SetPool(_xpBubblePool);
+        xpBubble.gameObject.SetActive(false);
+        return xpBubble;
     }
 
     EnemyLifetime CreateEnemy()
@@ -47,7 +58,9 @@ public class EnemyPool : MonoBehaviour
 
         if (enemy.CurrentHealth <= 0)
         {
-            SpawnExplosion(enemy.transform.position);
+            var position = enemy.transform.position;
+            SpawnExplosion(position);
+            SpawnXpBubble(position);
         }
     }
 
@@ -57,6 +70,16 @@ public class EnemyPool : MonoBehaviour
         if (explosion is not null)
         {
             explosion.transform.position = position;
+        }
+    }
+
+    void SpawnXpBubble(Vector3 position)
+    {
+        var xpBubble = _xpBubblePool.Get();
+        if (xpBubble is not null)
+        {
+            xpBubble.transform.position = position;
+            xpBubble.gameObject.SetActive(true);
         }
     }
 

@@ -33,7 +33,8 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             var delay = TimeUntilNextSpawn();
-            yield return new WaitForSeconds(TimeUntilNextSpawn());
+            Debug.LogFormat("Spawn next enemy in {0:F2} seconds", delay);
+            yield return new WaitForSeconds(delay);
 
             SpawnEnemy();
         }
@@ -60,5 +61,13 @@ public class EnemySpawner : MonoBehaviour
         {
             enemy.Teleport(spawnPosition);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(_leftmostSpawnPoint, _rightmostSpawnPoint);
+        Gizmos.DrawSphere(leftmostSpawnPoint.position, 0.1f);
+        Gizmos.DrawSphere(rightmostSpawnPoint.position, 0.1f);
     }
 }
