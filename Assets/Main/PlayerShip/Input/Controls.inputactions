@@ -1,0 +1,45 @@
+{
+    "name": "Controls",
+    "maps": [
+        {
+            "name": "gameplay",
+            "id": "ce5c08ee-4d18-407d-b6e9-c6df430ed15a",
+            "actions": [
+                {
+                    "name": "move",
+                    "type": "Value",
+                    "id": "6ac9c6e1-cb70-4afe-a182-89ab7d0ae4da",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0872e624-a1f2-470b-ab93-1cb4947d2c48",
+                    "path": "<Touchscreen>/primaryTouch/position/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a5b3902c-cf7b-408b-8c9a-ee8a7f08e918",
+                    "path": "<Mouse>/position/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
